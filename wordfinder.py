@@ -40,7 +40,8 @@ class WordFinder:
 
         file = open(self.path, "r")
         file_text = file.readlines()
-        return [split.strip() for split in file_text]
+
+        return [line.strip() for line in file_text]
 
     def print_words_read(self):
         """
@@ -58,9 +59,10 @@ class WordFinder:
 
         >>> words.random() in words.words
         True
-
+        TODO: random.choice()
         """
         rand_index = randint(0, len(self.words)-1)
+
         return self.words[rand_index]
 
 
@@ -71,23 +73,6 @@ class RandomWordFinder(WordFinder):
     Word finder that ignores blank lines and lines that start with #
 
     """
-
-    def __init__(self, path):
-        """
-        Constructs RandomWordFinder instance
-
-        >>> words = RandomWordFinder(path='words.txt')
-        5 words read
-
-        """
-        super().__init__(path)
-
-    def __repr__(self):
-        """
-        Generate summary for RandomWordFinder instance
-
-        """
-        super().__repr__()
 
     def read_file_and_append(self):
         """
@@ -103,4 +88,4 @@ class RandomWordFinder(WordFinder):
         """
         basic_filtered = super().read_file_and_append()
 
-        return [word for word in basic_filtered if word != "" and word[0] != "#"]
+        return [word for word in basic_filtered if word != "" and not word.startswith("#")]
